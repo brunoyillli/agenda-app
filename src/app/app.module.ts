@@ -7,8 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar'
-import {MatInputModule} from '@angular/material/input';
-
+import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http'
 import { ContatoComponent } from './contato/contato.component'
 import { ContatoService } from './contato.service';
 
@@ -23,6 +23,7 @@ import { ContatoService } from './contato.service';
     MatButtonModule,
     MatToolbarModule,
     MatInputModule,
+    HttpClientModule,
     BrowserAnimationsModule
   ],
   providers: [
