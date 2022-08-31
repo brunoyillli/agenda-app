@@ -11,6 +11,7 @@ import { Contato } from './contato';
 export class ContatoComponent implements OnInit {
 
   formulario!: FormGroup;
+  contatos: Contato[] = [];
 
   constructor(
     private service: ContatoService,
@@ -25,7 +26,10 @@ export class ContatoComponent implements OnInit {
   }
 
   submit(){
-  
-    console.log(this.formulario.value)
+    const formValues = this.formulario.value;
+    const contato : Contato = new Contato(formValues.nome,formValues.email);
+    this.service.save(contato).subscribe( resposta => {
+      this.contatos.push(resposta);
+    })
   }
 }
