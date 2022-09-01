@@ -12,6 +12,7 @@ export class ContatoComponent implements OnInit {
 
   formulario!: FormGroup;
   contatos: Contato[] = [];
+  colunas = ["id", 'nome', "email", "favorito"]
 
   constructor(
     private service: ContatoService,
@@ -19,16 +20,34 @@ export class ContatoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.formulario = this.fb.group({
-      nome: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email] ]
+    this.montarFormulario();
+    this.listarContatos();
+  }
+
+  listarContatos() {
+    this.service.list().subscribe(response => {
+      this.contatos = response;
     })
   }
 
-  submit(){
+  montarFormulario() {
+    this.formulario = this.fb.group({
+      nome: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    })
+  }
+
+  favoritar(contato: Contato) {
+    this.service.favourite(contato).subscribe(response =>{
+      contato.favorito = !contato.favorito;
+    })
+    
+  }
+
+  submit() {
     const formValues = this.formulario.value;
-    const contato : Contato = new Contato(formValues.nome,formValues.email);
-    this.service.save(contato).subscribe( resposta => {
+    const contato: Contato = new Contato(formValues.nome, formValues.email);
+    this.service.save(contato).subscribe(resposta => {
       this.contatos.push(resposta);
     })
   }
