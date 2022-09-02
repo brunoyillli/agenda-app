@@ -24,6 +24,6 @@ export class ContatoService {
   }
 
   favourite(contato:Contato):Observable<any>{
-    return this.http.put(`${this.url}/${contato.id}"/favorito`, null)
+    return this.http.put(`${this.url}/${contato.id}/favorito`, null)
   }
 }
